@@ -1,0 +1,6 @@
+.countdown{
+    background-image: linear-gradient( yellow, blue);
+    color:#ffff;
+    font-size: 1.8rem;
+    padding: 25px;
+}
