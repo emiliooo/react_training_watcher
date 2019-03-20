@@ -1,6 +1,21 @@
 .edit-event {
     background-color: orange;
 }
-input {
-    
+
+#name,
+#hour,
+#minute {
+    border:1px solid black;
+    float: right;
 }
+
+.edit-event__input-group label{
+    color:white;
+}
+
+.edit-event__input-group {
+    max-width: 303px;
+    margin: 0 auto;
+    padding: 2px;
+}
+
