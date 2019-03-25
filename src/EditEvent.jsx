@@ -12,7 +12,6 @@ const EditEvent = props => {
                     onChange={ e => props.onInputChange({[e.target.name]:e.target.value})}
                     name="name" />
                 </p>
-
             </div>
             <div className="edit-event__input-group">
                 <p>
@@ -20,7 +19,7 @@ const EditEvent = props => {
                     <input 
                     type="tel" 
                     id="hour" 
-                    onChange={ e => props.onInputChange(e.target.name,e.target.value)}
+                    onChange={ e => props.onInputChange({[e.target.name]:e.target.value})}
                     name="hour" />
                 </p>
             </div>
@@ -30,10 +29,9 @@ const EditEvent = props => {
                     <input 
                     type="tel" 
                     id="minute" 
-                    onChange={ e =>  props.onInputChange(e.target.name,e.target.value)}
+                    onChange={ e =>  props.onInputChange({[e.target.name]:e.target.value})}
                     name="minute" />
                 </p>
-
             </div>
             <button>ok</button>
             <button>cancel</button>
