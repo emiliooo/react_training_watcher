@@ -21,17 +21,23 @@ class App extends Component {
                 minute:""
             }
         }
-        
         this.handleEditEvent = this.handleEditEvent.bind(this);
+        this.handleSaveEvent = this.handleSaveEvent.bind(this);
     };
 
     handleEditEvent(val) {   
         this.setState(prevState => {
-            console.log(prevState )
             return {
                 editedEvents: Object.assign(prevState.editedEvents, val)
             }
         })
+    }
+
+    handleSaveEvent() {
+        this.setState(prevState => ({
+            events:[...prevState.events,prevState.editedEvents]
+        }))
+
     }
     render() {
         const events = this.state.events.map(el => {
@@ -40,7 +46,7 @@ class App extends Component {
         return (
             <div className="app">
                 {events}
-                <EditEvent  onInputChange={val => this.handleEditEvent(val)}/>
+                <EditEvent  onInputChange={val => this.handleEditEvent(val)} onSave={() => this.handleSaveEvent()}/>
             </div>
         )
     }

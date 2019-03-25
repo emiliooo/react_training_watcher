@@ -33,7 +33,7 @@ const EditEvent = props => {
                     name="minute" />
                 </p>
             </div>
-            <button>ok</button>
+            <button onClick={props.onSave}>ok</button>
             <button>cancel</button>
         </div>
     )
