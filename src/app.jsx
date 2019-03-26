@@ -9,7 +9,7 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            events: [
+            events: [  
                 { id: 1, name: 'śniadanie', hour: "7"  , minute:"00" },
                 { id: 2, name: 'obiad',     hour: "15" , minute:"00" },
                 { id: 3, name: 'obiad',     hour: "15" , minute:"00" }
@@ -28,14 +28,20 @@ class App extends Component {
     handleEditEvent(val) {   
         this.setState(prevState => {
             return {
-                editedEvents: Object.assign(prevState.editedEvents, val)
+                editedEvents: Object.assign(prevState.editedEvents, val),
             }
         })
     }
 
     handleSaveEvent() {
         this.setState(prevState => ({
-            events:[...prevState.events,prevState.editedEvents]
+            events:[...prevState.events,prevState.editedEvents],
+            editedEvents: {
+                id:3,
+                name:"",
+                hour:"",
+                minute:""
+            }
         }))
 
     }
@@ -46,7 +52,11 @@ class App extends Component {
         return (
             <div className="app">
                 {events}
-                <EditEvent  onInputChange={val => this.handleEditEvent(val)} onSave={() => this.handleSaveEvent()}/>
+                <EditEvent
+                 name = {this.state.editedEvents.name}
+                 hour = {this.state.editedEvents.hour}
+                 minute = {this.state.editedEvents.minute}
+                 onInputChange={val => this.handleEditEvent(val)} onSave={() => this.handleSaveEvent()}/>
             </div>
         )
     }

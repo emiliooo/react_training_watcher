@@ -9,6 +9,7 @@ const EditEvent = props => {
                     <input 
                     type="text" 
                     id="name" 
+                    value={props.name}
                     onChange={ e => props.onInputChange({[e.target.name]:e.target.value})}
                     name="name" />
                 </p>
@@ -19,6 +20,7 @@ const EditEvent = props => {
                     <input 
                     type="tel" 
                     id="hour" 
+                    value={props.hour}
                     onChange={ e => props.onInputChange({[e.target.name]:e.target.value})}
                     name="hour" />
                 </p>
@@ -28,7 +30,8 @@ const EditEvent = props => {
                     <label htmlFor="minute">minute</label>
                     <input 
                     type="tel" 
-                    id="minute" 
+                    id="minute"
+                    value={props.minute} 
                     onChange={ e =>  props.onInputChange({[e.target.name]:e.target.value})}
                     name="minute" />
                 </p>
