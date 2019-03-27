@@ -10,6 +10,7 @@ const EditEvent = props => {
                     type="text" 
                     id="name" 
                     value={props.name}
+                    onKeyPress={e => console.log(e.key)}
                     onChange={ e => props.onInputChange({[e.target.name]:e.target.value})}
                     name="name" />
                 </p>
