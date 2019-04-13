@@ -10,28 +10,34 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
+            now: {
+                hour:new Date().getHours(),
+                minute:new Date().getMinutes(),
+                seconds:new Date().getSeconds()
+            },
             events: [
-                { id: 1, name: 'śniadanie', hour: "7", minute: "00" },
-                { id: 2, name: 'obiad', hour: "15", minute: "00" },
-                { id: 3, name: 'kolacja', hour: "19", minute: "00" }
+                { id: 1, name: 'śniadanie', hour: 7, minute: 0 },
+                { id: 2, name: 'obiad', hour: 15, minute: 0 },
+                { id: 3, name: 'kolacja', hour: 19, minute: 0 }
             ],
-            editedEvents: {
+            editedEvent: {
                 id: uniqid('emilsuper'),
                 name: "",
-                hour: "",
-                minute: ""
+                hour: -1,
+                minute: -1
             }
         }
         this.handleEditEvent = this.handleEditEvent.bind(this);
         this.handleSaveEvent = this.handleSaveEvent.bind(this);
         this.handleRemoveEvent = this.handleRemoveEvent.bind(this);
         this.handleEditInit = this.handleEditInit.bind(this);
+        this.handleEditCancel = this.handleEditCancel.bind(this);
     };
 
     handleEditEvent(val) {
         this.setState(prevState => {
             return {
-                editedEvents: Object.assign(prevState.editedEvents, val),
+                editedEvent: Object.assign(prevState.editedEvent, val),
             }
         })
     }
@@ -39,32 +45,26 @@ class App extends Component {
     handleSaveEvent() {
         this.setState(prevState => {
             const editedEventExists = prevState.events.find(
-                el => el.id === prevState.editedEvents.id
+                el => el.id === prevState.editedEvent.id
             )
 
+
             let updatedEvents;
-            if(editedEventExists) {
+            if (editedEventExists) {
                 updatedEvents = prevState.events.map(el => {
-                    if(el.id === prevState.editedEvent.id) return prevState.editedEvent
+                    if (el.id === prevState.editedEvent.id) return prevState.editedEvent;
                     else return el;
                 })
             } else {
-                updatedEvents = [...prevState.events,prevState]
+                updatedEvents = [...prevState.events, prevState.editedEvent]
+            }
+
+            return {
+                events: updatedEvents,
+                editedEvent: { id: uniqid(), name: '', hour: -1, minute: -1 }
             }
 
         })
-
-
-
-        // this.setState(prevState => ({
-        //     events: [...prevState.events, prevState.editedEvents],
-        //     editedEvents: {
-        //         id: uniqid('emilsuper'),
-        //         name: "",
-        //         hour: "",
-        //         minute: ""
-        //     }
-        // }))
     }
 
     handleRemoveEvent(id) {
@@ -75,8 +75,14 @@ class App extends Component {
 
     handleEditInit(id) {
         this.setState(prevState => ({
-            editedEvents:{ ...prevState.events.find(el => el.id === id)}
+            editedEvent: { ...prevState.events.find(el => el.id === id) }
         }))
+    }
+
+    handleEditCancel() {
+        this.setState({
+            editedEvent:{ id: uniqid(), name: '', hour: -1, minute: -1 }
+        })
     }
 
     render() {
@@ -88,17 +94,19 @@ class App extends Component {
                 hour={el.hour}
                 onEdit={id => this.handleEditInit(id)}
                 onRemove={id => this.handleRemoveEvent(id)}
-                minute={el.minute} />
+                minute={el.minute} 
+                timeNow={this.state.now}/>
         })
         return (
             <div className="app">
                 {events}
                 <EditEvent
-                    name={this.state.editedEvents.name}
-                    hour={this.state.editedEvents.hour}
-                    minute={this.state.editedEvents.minute}
+                    name={this.state.editedEvent.name}
+                    hour={this.state.editedEvent.hour}
+                    minute={this.state.editedEvent.minute}
                     onInputChange={val => this.handleEditEvent(val)}
-                    onSave={() => this.handleSaveEvent()} />
+                    onSave={() => this.handleSaveEvent()} 
+                    onCancel={() => this.handleEditCancel() }/>
             </div>
         )
     }

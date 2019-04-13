@@ -10,3 +10,11 @@ body{
     margin:0 auto;
     text-align: center;
 }
+
+.edit-event__button_ok:disabled {
+    opacity: 0.5;
+}
+
+button{
+    cursor: pointer;
+}
